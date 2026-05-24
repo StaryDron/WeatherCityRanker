@@ -32,6 +32,7 @@ CREATE TABLE events (
     category VARCHAR(100),
     url TEXT,
     weather_score INTEGER,
+    is_recurring BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (city_id, dt) REFERENCES city_forecasts(city_id, dt)
 );
 
