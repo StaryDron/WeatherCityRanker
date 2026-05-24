@@ -114,8 +114,8 @@ class DataProcessor:
                 category = event.get("classifications", [{}])[0].get("segment", {}).get("name", "Other")
     
                 self.cursor.execute("""
-                    INSERT INTO events (id, name, local_date, local_time, dt, city_id, venue_name, category, url, weather_score)
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    INSERT INTO events (id, name, local_date, local_time, dt, city_id, venue_name, category, url, weather_score, is_recurring, lat, lon)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
                     ON CONFLICT (id) DO NOTHING
                 """, (
                     event["id"],
@@ -127,7 +127,10 @@ class DataProcessor:
                     venue.get("name"),
                     category,
                     event.get("url"),
-                    None
+                    None,
+                    False,
+                    event_lat,
+                    event_lon
                 ))
                 saved += 1
             except Exception as e:
