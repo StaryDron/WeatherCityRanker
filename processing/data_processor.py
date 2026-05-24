@@ -135,7 +135,6 @@ class DataProcessor:
                 continue
         
         self.conn.commit()
-        print(f"Zapisano {saved} eventow dla city_id={city_id}")
 
     def calculate_weather_score(self, category, weather_main, temp, wind_speed, humidity):
         # bazowy score zalezy od pogody
