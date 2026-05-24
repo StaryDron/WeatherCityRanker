@@ -1,0 +1,11 @@
+C4Context
+    title System Context - EventWeather PL
+
+    Person(user, "Uzytkownik", "Osoba szukajaca wydarzen w polskich miastach")
+    System(eventweather, "EventWeather PL", "Agreguje wydarzenia kulturalne i sportowe z prognoza pogody dla polskich miast")
+    System_Ext(ticketmaster, "Ticketmaster API", "Zrodlo danych o wydarzeniach: koncerty, sport, teatr w Polsce")
+    System_Ext(openweather, "OpenWeatherMap API", "Zrodlo danych pogodowych: aktualna pogoda i prognoza 5-dniowa")
+
+    Rel(user, eventweather, "Przegląda wydarzenia i sprawdza pogode", "HTTPS")
+    Rel(eventweather, ticketmaster, "Pobiera wydarzenia PL", "REST / JSON")
+    Rel(eventweather, openweather, "Pobiera progneze pogody", "REST / JSON")

@@ -1,0 +1,50 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: weatherapp_db_test
+    environment:
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: weatherapp_test
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - eventweather_test_network
+
+  backend_test:
+    build: ./backend
+    container_name: weatherapp_backend_test
+    environment:
+      APP_ENV: test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_password
+      POSTGRES_DB: weatherapp_test
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+    volumes:
+      - ./backend:/app
+      - ./tests:/tests
+    depends_on:
+      - db
+    networks:
+      - eventweather_test_network
+    command: pytest /tests/unit -v --cov=. --cov-report=term-missing
+
+  locust:
+    image: locustio/locust
+    container_name: weatherapp_locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./tests/performance:/mnt/locust
+    command: -f /mnt/locust/locustfile.py --host=http://backend_test:8000
+    depends_on:
+      - backend_test
+    networks:
+      - eventweather_test_network
+
+networks:
+  eventweather_test_network:
+    driver: bridge

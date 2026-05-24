@@ -1,0 +1,21 @@
+graph TB
+    subgraph VM["Ubuntu 24.04 VM - /home/arch/weatherApp"]
+        subgraph DEV["docker-compose.dev.yml - deweloperskie"]
+            D1["ingestion:dev debug=True"]
+            D2["backend:dev hot-reload"]
+            D3["frontend:dev nginx"]
+            D4[("postgres:dev dane testowe")]
+        end
+        subgraph TEST["docker-compose.test.yml - testowe"]
+            T1["ingestion:test mock API"]
+            T2["backend:test pytest runner"]
+            T3["locust testy wydajnosciowe"]
+            T4[("postgres:test izolowana baza")]
+        end
+        subgraph PROD["docker-compose.yml - produkcyjne"]
+            P1["ingestion:prod scheduler aktywny"]
+            P2["backend:prod gunicorn+uvicorn"]
+            P3["frontend:prod nginx"]
+            P4[("postgres:prod dane produkcyjne")]
+        end
+    end

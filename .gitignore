@@ -1,0 +1,25 @@
+# Klucze API - NIGDY nie wgrywaj!
+.env
+*.env
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Testy
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Logi
+*.log
+logs/
+
+# Docker volumes
+postgres_data/
+
+# System
+.DS_Store
+Thumbs.db
