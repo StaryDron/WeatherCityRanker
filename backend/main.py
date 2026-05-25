@@ -20,7 +20,7 @@ def get_db():
         password=os.environ["POSTGRES_PASSWORD"],
         port=os.environ["POSTGRES_PORT"]
     )
-
+# kom
 @app.get("/api/cities")
 def get_cities():
     conn = get_db()
