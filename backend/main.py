@@ -7,10 +7,22 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fastapi import FastAPI
 import psycopg2
 from dotenv import load_dotenv
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
 app = FastAPI(title="EventWeather PL", version="1.0.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:8090",
+        "http://127.0.0.1:8090",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 def get_db():
     return psycopg2.connect(
