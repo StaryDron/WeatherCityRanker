@@ -1,16 +1,950 @@
-body { background-color: #0f1117; color: #e0e0e0; }
-.navbar { background-color: #1a1d2e !important; border-bottom: 1px solid #2d3150; }
-.navbar-brand { color: #7c83fd !important; font-weight: 700; font-size: 1.4rem; }
-.card { background-color: #1a1d2e; border: 1px solid #2d3150; color: #e0e0e0; }
-.card:hover { border-color: #7c83fd; transform: translateY(-2px); transition: all 0.2s; }
-.score-badge { font-size: 1.1rem; font-weight: 700; }
-.score-high { color: #4caf50; }
-.score-mid { color: #ff9800; }
-.score-low { color: #f44336; }
-.weather-icon { font-size: 2rem; }
-.section-title { color: #7c83fd; font-weight: 600; border-bottom: 1px solid #2d3150; padding-bottom: 0.5rem; }
-select, .form-check-input { background-color: #0f1117; color: #e0e0e0; border-color: #2d3150; }
-select option { background-color: #1a1d2e; }
-#map { height: 400px; border-radius: 8px; border: 1px solid #2d3150; }
-.ranking-bar { background-color: #7c83fd; height: 8px; border-radius: 4px; }
-.recurring-badge { background-color: #2d3150; color: #7c83fd; font-size: 0.75rem; padding: 2px 8px; border-radius: 12px; }
+/* ============================================================
+   EVENTWEATHER PL — JASNY STYL INSPIROWANY OPENWEATHER
+   Plik: frontend/css/style.css
+============================================================ */
+
+/* =========================
+   ZMIENNE KOLORÓW
+========================= */
+:root {
+    --background: #ffffff;
+    --background-secondary: #f4f8fb;
+    --background-blue: #edf5f9;
+    --background-card: #ffffff;
+
+    --text-main: #132c42;
+    --text-secondary: #63798d;
+    --text-light: #ffffff;
+
+    --accent: #ff672f;
+    --accent-hover: #ee521a;
+    --accent-soft: #fff0eb;
+
+    --blue: #229cca;
+    --blue-soft: #eaf6fb;
+
+    --success: #1f9d58;
+    --success-soft: #e9f8ef;
+
+    --warning: #de9400;
+    --warning-soft: #fff6e4;
+
+    --danger: #df4545;
+    --danger-soft: #fdecec;
+
+    --border: rgba(19, 44, 66, 0.10);
+    --border-strong: rgba(19, 44, 66, 0.16);
+
+    --shadow-sm: 0 8px 24px rgba(28, 55, 78, 0.06);
+    --shadow: 0 18px 48px rgba(28, 55, 78, 0.11);
+    --shadow-strong: 0 22px 58px rgba(20, 42, 62, 0.16);
+
+    --radius-sm: 11px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+}
+
+/* =========================
+   GLOBALNE
+========================= */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    background-color: var(--background);
+    color: var(--text-main);
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: none;
+}
+
+main {
+    background-color: var(--background);
+}
+
+.content-section {
+    padding: 88px 0;
+}
+
+.section-dark {
+    background-color: var(--background-secondary);
+}
+
+.section-header {
+    margin-bottom: 38px;
+}
+
+.section-label {
+    margin-bottom: 10px;
+    color: var(--accent);
+    font-size: 0.77rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+}
+
+.section-title {
+    margin-bottom: 12px;
+    color: var(--text-main);
+    font-size: clamp(1.85rem, 3vw, 2.45rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+}
+
+.section-description {
+    max-width: 670px;
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.72;
+}
+
+/* =========================
+   NAVBAR
+========================= */
+.custom-navbar {
+    padding: 22px 0;
+    background-color: transparent;
+    transition:
+        padding 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.nav-layout {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+    margin-right: 0;
+    color: #ffffff !important;
+    font-size: 1.28rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.brand-icon {
+    font-size: 1.42rem;
+}
+
+.nav-panel {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    padding: 8px 10px 8px 29px;
+    border-radius: 21px;
+    background-color: rgba(255, 255, 255, 0.97);
+    box-shadow: 0 12px 38px rgba(20, 42, 62, 0.14);
+}
+
+.nav-link {
+    padding: 12px 4px !important;
+    color: #263b4c !important;
+    font-size: 0.97rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+    color: var(--accent) !important;
+}
+
+.nav-button {
+    margin-left: 27px;
+    white-space: nowrap;
+}
+
+.custom-navbar.scrolled {
+    padding: 13px 0;
+    background-color: rgba(255, 255, 255, 0.93);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 5px 22px rgba(27, 48, 67, 0.09);
+}
+
+.custom-navbar.scrolled .navbar-brand {
+    color: var(--text-main) !important;
+}
+
+.navbar-toggler {
+    padding: 8px 11px;
+    border: 1px solid rgba(19, 44, 66, 0.14);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: none !important;
+}
+
+.navbar-toggler-icon {
+    filter: none;
+}
+
+/* =========================
+   PRZYCISKI
+========================= */
+.btn-primary-custom {
+    padding: 13px 27px;
+    border: 1px solid var(--accent);
+    border-radius: 15px;
+    background-color: var(--accent);
+    color: #ffffff;
+    font-weight: 600;
+    transition:
+        background-color 0.22s ease,
+        border-color 0.22s ease,
+        transform 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.btn-primary-custom:hover,
+.btn-primary-custom:focus {
+    border-color: var(--accent-hover);
+    background-color: var(--accent-hover);
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(255, 103, 47, 0.22);
+}
+
+.btn-outline-custom {
+    padding: 13px 27px;
+    border: 1px solid rgba(255, 255, 255, 0.76);
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.07);
+    color: #ffffff;
+    font-weight: 600;
+    transition:
+        background-color 0.22s ease,
+        border-color 0.22s ease,
+        transform 0.22s ease;
+}
+
+.btn-outline-custom:hover,
+.btn-outline-custom:focus {
+    border-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.19);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+/* =========================
+   HERO — ZDJĘCIE NA CAŁY HEADER
+========================= */
+.hero-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 102vh;
+    overflow: hidden;
+
+    background-image: url("../assets/hero-weather.jpg");
+    background-size: cover;
+    background-position: center 82%;
+    background-repeat: no-repeat;
+}
+/* Warstwa przyciemniająca całe zdjęcie,
+   żeby biały tekst był czytelny */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8, 24, 38, 0.74) 0%,
+            rgba(8, 24, 38, 0.60) 38%,
+            rgba(8, 24, 38, 0.38) 68%,
+            rgba(8, 24, 38, 0.25) 100%
+        ),
+        linear-gradient(
+            0deg,
+            rgba(8, 24, 38, 0.25),
+            rgba(8, 24, 38, 0.06)
+        );
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 105px;
+    padding-bottom: 124px;
+}
+
+.hero-title {
+    max-width: 720px;
+    margin-bottom: 25px;
+    color: #ffffff;
+    font-size: clamp(2.7rem, 5.1vw, 4.45rem);
+    font-weight: 720;
+    line-height: 1.08;
+    letter-spacing: -0.058em;
+}
+
+.hero-description {
+    max-width: 590px;
+    margin-bottom: 38px;
+    color: rgba(255, 255, 255, 0.94);
+    font-size: 1.13rem;
+    line-height: 1.82;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+/* =========================
+   STATYSTYKI
+========================= */
+.stats-section {
+    position: relative;
+    z-index: 3;
+    margin-top: -155px;
+}
+
+.stats-wrapper {
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: var(--shadow-strong);
+}
+
+.stat-card {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    height: 100%;
+    min-height: 88px;
+    padding: 12px 18px;
+    border-right: 1px solid var(--border);
+}
+
+.stats-wrapper .row > div:last-child .stat-card {
+    border-right: none;
+}
+
+.stat-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 53px;
+    height: 53px;
+    border-radius: 15px;
+    background-color: var(--accent-soft);
+    font-size: 1.45rem;
+}
+
+.stat-value {
+    color: var(--text-main);
+    font-size: 1.85rem;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.stat-value.stat-city {
+    font-size: 1.28rem;
+}
+
+.stat-label {
+    margin-top: 6px;
+    color: var(--text-secondary);
+    font-size: 0.86rem;
+}
+
+/* =========================
+   RANKING MIAST
+========================= */
+.ranking-card {
+    position: relative;
+    height: 100%;
+    min-height: 205px;
+    padding: 25px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.ranking-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(255, 103, 47, 0.34);
+    box-shadow: 0 17px 38px rgba(35, 65, 90, 0.11);
+}
+
+.ranking-card.first-place {
+    border-color: rgba(246, 167, 29, 0.37);
+    background:
+        linear-gradient(145deg, rgba(255, 176, 36, 0.11), transparent 60%),
+        #ffffff;
+}
+
+.ranking-position {
+    position: absolute;
+    top: 18px;
+    right: 21px;
+    color: rgba(19, 44, 66, 0.10);
+    font-size: 2.4rem;
+    font-weight: 700;
+}
+
+.ranking-medal {
+    margin-bottom: 17px;
+    font-size: 1.7rem;
+}
+
+.ranking-city {
+    margin-bottom: 4px;
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 700;
+}
+
+.ranking-events {
+    margin-bottom: 19px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.ranking-score-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.ranking-score-number {
+    font-weight: 700;
+}
+
+.ranking-track {
+    height: 8px;
+    overflow: hidden;
+    border-radius: 30px;
+    background-color: #e8eff4;
+}
+
+.ranking-bar {
+    height: 100%;
+    border-radius: 30px;
+    background: linear-gradient(90deg, var(--accent), #ffb265);
+}
+
+/* =========================
+   KOLORY WYNIKU POGODY
+========================= */
+.score-high {
+    color: var(--success);
+}
+
+.score-mid {
+    color: var(--warning);
+}
+
+.score-low {
+    color: var(--danger);
+}
+
+/* =========================
+   MAPA
+========================= */
+.map-card {
+    overflow: hidden;
+    padding: 9px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background-color: #ffffff;
+    box-shadow: var(--shadow);
+}
+
+#map {
+    height: 540px;
+    border-radius: 17px;
+}
+
+.custom-map-marker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 38px;
+    height: 38px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    background-color: var(--accent);
+    font-size: 18px;
+    box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+}
+
+.map-popup-title {
+    margin-bottom: 5px;
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+
+.map-popup-info {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* =========================
+   WYDARZENIA — NAGŁÓWEK
+========================= */
+.events-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 22px;
+}
+
+.events-counter {
+    flex-shrink: 0;
+    text-align: right;
+}
+
+.events-counter span {
+    display: block;
+    color: var(--accent);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.05;
+}
+
+.events-counter small {
+    color: var(--text-secondary);
+}
+
+/* =========================
+   FILTRY
+========================= */
+.filters-card {
+    margin-bottom: 40px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: var(--background-secondary);
+}
+
+.form-label {
+    margin-bottom: 8px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.custom-select {
+    min-height: 49px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.custom-select:focus {
+    border-color: var(--accent);
+    background-color: #ffffff;
+    color: var(--text-main);
+    box-shadow: 0 0 0 0.2rem rgba(255, 103, 47, 0.13);
+}
+
+.custom-select option {
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.weather-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 49px;
+    padding: 0 16px;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.form-check-input {
+    border-color: rgba(19, 44, 66, 0.28);
+    background-color: #ffffff;
+}
+
+.form-check-input:checked {
+    border-color: var(--accent);
+    background-color: var(--accent);
+}
+
+.form-check-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.2rem rgba(255, 103, 47, 0.13);
+}
+
+/* Przycisk "Wyczyść filtry" ma być ciemny na jasnym tle */
+.filters-card .btn-outline-custom {
+    border-color: var(--border-strong);
+    background-color: #ffffff;
+    color: var(--text-main);
+}
+
+.filters-card .btn-outline-custom:hover {
+    border-color: var(--accent);
+    background-color: var(--accent-soft);
+    color: var(--accent);
+}
+
+/* =========================
+   KARTY WYDARZEŃ
+========================= */
+.event-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 360px;
+    padding: 25px;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: var(--shadow-sm);
+    transition:
+        transform 0.22s ease,
+        border-color 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(34, 156, 202, 0.28);
+    box-shadow: 0 17px 38px rgba(35, 65, 90, 0.11);
+}
+
+.event-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.weather-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 11px;
+    border-radius: 30px;
+    font-size: 0.78rem;
+    font-weight: 650;
+}
+
+.status-good {
+    background-color: var(--success-soft);
+    color: var(--success);
+}
+
+.status-mid {
+    background-color: var(--warning-soft);
+    color: var(--warning);
+}
+
+.status-bad {
+    background-color: var(--danger-soft);
+    color: var(--danger);
+}
+
+.event-score {
+    font-size: 1.03rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.event-title {
+    margin-bottom: 7px;
+    color: var(--text-main);
+    font-size: 1.16rem;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.recurring-badge {
+    display: inline-flex;
+    width: fit-content;
+    margin-bottom: 17px;
+    padding: 4px 10px;
+    border-radius: 30px;
+    background-color: var(--blue-soft);
+    color: var(--blue);
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.event-details {
+    margin-bottom: 20px;
+    color: var(--text-secondary);
+    font-size: 0.91rem;
+    line-height: 1.9;
+}
+
+.weather-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.weather-pill {
+    padding: 6px 10px;
+    border-radius: 9px;
+    background-color: #f1f6f9;
+    color: #41586c;
+    font-size: 0.82rem;
+}
+
+.event-link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+    padding: 11px 16px;
+    border: 1px solid rgba(255, 103, 47, 0.36);
+    border-radius: 10px;
+    color: var(--accent);
+    font-weight: 600;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.event-link:hover {
+    border-color: var(--accent);
+    background-color: var(--accent);
+    color: #ffffff;
+}
+
+/* =========================
+   STANY ŁADOWANIA / BRAK DANYCH / BŁĄD
+========================= */
+.empty-state,
+.loading-message,
+.error-state {
+    width: 100%;
+    padding: 60px 20px;
+    border: 1px dashed var(--border-strong);
+    border-radius: 18px;
+    background-color: #ffffff;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.error-state {
+    border-color: rgba(223, 69, 69, 0.24);
+    background-color: #fff7f7;
+    color: var(--danger);
+}
+
+/* =========================
+   FOOTER
+========================= */
+.footer {
+    padding: 42px 0;
+    border-top: 1px solid var(--border);
+    background-color: var(--background-secondary);
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.footer-brand {
+    margin-bottom: 7px;
+    color: var(--text-main);
+    font-size: 1.18rem;
+    font-weight: 700;
+}
+
+.footer-text {
+    margin-bottom: 0;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.footer-sources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    color: var(--text-secondary);
+    font-size: 0.87rem;
+}
+
+.footer-sources span:first-child {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+/* =========================
+   TABLETY I MNIEJSZE EKRANY
+========================= */
+@media (max-width: 1199px) {
+    .stat-card {
+        border-right: none;
+    }
+}
+
+@media (max-width: 991px) {
+    .custom-navbar {
+        padding: 15px 0;
+        background-color: rgba(8, 23, 38, 0.72);
+        backdrop-filter: blur(10px);
+    }
+
+    .custom-navbar.scrolled {
+        background-color: rgba(255, 255, 255, 0.96);
+    }
+
+    .nav-layout {
+        flex-wrap: wrap;
+        gap: 0;
+    }
+
+    .navbar-collapse.nav-panel {
+        width: 100%;
+        margin-top: 15px;
+        margin-left: 0;
+        padding: 16px;
+        border-radius: 18px;
+        background-color: #ffffff;
+    }
+
+    .nav-link {
+        padding: 10px 4px !important;
+    }
+
+    .nav-button {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+        margin-left: 0;
+        text-align: center;
+    }
+
+    .hero-section {
+        min-height: 88vh;
+    }
+
+    .hero-section::before {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(7, 23, 37, 0.80) 0%,
+                rgba(7, 23, 37, 0.63) 100%
+            ),
+            url("../assets/hero-weather.jpg") center 82% / auto 125% no-repeat;
+    }
+
+    .hero-content {
+        padding-top: 125px;
+        padding-bottom: 116px;
+    }
+
+    .stats-section {
+        margin-top: -30px;
+    }
+
+    .events-header,
+    .footer-content {
+        align-items: start;
+        flex-direction: column;
+    }
+
+    .events-counter {
+        text-align: left;
+    }
+}
+
+/* =========================
+   TELEFONY
+========================= */
+@media (max-width: 576px) {
+    .content-section {
+        padding: 62px 0;
+    }
+
+    .navbar-brand {
+        font-size: 1.12rem;
+    }
+
+    .hero-section {
+        min-height: 92vh;
+    }
+
+    .hero-title {
+        font-size: 2.42rem;
+        line-height: 1.12;
+    }
+
+    .hero-description {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+    }
+
+    .stats-wrapper {
+        padding: 15px;
+    }
+
+    .stat-card {
+        padding: 11px 12px;
+    }
+
+    #map {
+        height: 420px;
+    }
+
+    .filters-card,
+    .event-card,
+    .ranking-card {
+        padding: 20px;
+    }
+}
