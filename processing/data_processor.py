@@ -11,7 +11,7 @@ from datetime import datetime, timezone, timedelta
 import math
 
 def haversine(lat1, lon1, lat2, lon2):
-    R = 6371  # promien Ziemi w km
+    R = 6371 
     dlat = math.radians(lat2 - lat1)
     dlon = math.radians(lon2 - lon1)
     a = math.sin(dlat/2)**2 + math.cos(math.radians(lat1)) * math.cos(math.radians(lat2)) * math.sin(dlon/2)**2
@@ -64,7 +64,6 @@ class DataProcessor:
         self.conn.commit()
 
     def find_forecast_dt(self, city_id, event_dt):
-        # znajdź ostatni timestamp prognozy przed eventem
         self.cursor.execute("""
             SELECT dt FROM city_forecasts 
             WHERE city_id = %s AND dt <= %s
@@ -80,7 +79,6 @@ class DataProcessor:
         saved = 0
         for event in events:
             try:
-                # sprawdz czy event nalezy do tego miasta
                 venue = event.get("_embedded", {}).get("venues", [{}])[0]
                 event_lat = venue.get("location", {}).get("latitude")
                 event_lon = venue.get("location", {}).get("longitude")
@@ -88,12 +86,10 @@ class DataProcessor:
                 if event_lat and event_lon:
                     event_lat = float(event_lat)
                     event_lon = float(event_lon)
-                    # znajdz najblizsze miasto
                     closest_city_id = min(
                         all_cities,
                         key=lambda c: haversine(event_lat, event_lon, float(c[2]), float(c[3]))
                     )[0]
-                    # jesli najblizsze miasto to nie to ktore teraz przetwarzamy - pomijamy
                     if closest_city_id != city_id:
                         continue
     
@@ -140,7 +136,6 @@ class DataProcessor:
         self.conn.commit()
 
     def calculate_weather_score(self, category, weather_main, temp, wind_speed, humidity):
-        # bazowy score zalezy od pogody
         weather_scores = {
             "Clear": 100,
             "Clouds": 75,
@@ -153,12 +148,10 @@ class DataProcessor:
         }
         score = weather_scores.get(weather_main, 60)
     
-        # eventy w srodku sa odporne na pogode
         indoor_categories = ["Music", "Arts & Theatre", "Film"]
         if category in indoor_categories:
             score = min(100, score + 20)
         
-        # kary za ekstremalne warunki dla eventow outdoor
         outdoor_categories = ["Sports", "Miscellaneous"]
         if category in outdoor_categories:
             if temp < 5 or temp > 35:
