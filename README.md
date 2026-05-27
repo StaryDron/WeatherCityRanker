@@ -33,18 +33,7 @@ System zbudowany w architekturze warstwowej pipeline'u danych:
 
 ### Schemat bazy danych
 
-cities (id, name, lat, lon, radius)
-│
-└── city_forecasts (city_id, dt, temp, feels_like, humidity,
-│                   pressure, clouds_all, wind_speed,
-│                   weather_main, weather_description)
-│
-└── events (id, name, local_date, local_time, dt, city_id,
-venue_name, category, url, weather_score,
-is_recurring, lat, lon)
-│
-└── FK(city_id, dt) → city_forecasts
-
+![Schemat bazy danych](docs/database-diagram.png)
 ## Uzasadnienie wyboru technologii
 
 | Technologia | Uzasadnienie |
@@ -158,7 +147,7 @@ cp .env.example .env
 # Uzupełnij .env swoimi kluczami API i hasłem do bazy
 
 # 3. Uruchom wszystkie kontenery
-docker-compose up -d
+docker-compose up --build -d
 
 # 4. Sprawdź status kontenerów
 docker-compose ps
