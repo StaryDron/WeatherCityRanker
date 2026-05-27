@@ -4,11 +4,14 @@ import psycopg2
 import os
 import sys
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from ingestion.logger import get_logger
 from dotenv import load_dotenv
 from ingestion.openweather_client import OpenWeatherClient
 from ingestion.ticketmaster_client import TicketMasterClient
 from datetime import datetime, timezone, timedelta
 import math
+
+logger = get_logger("data_processor")
 
 def haversine(lat1, lon1, lat2, lon2):
     R = 6371 
@@ -37,6 +40,7 @@ class DataProcessor:
         return self.cursor.fetchall()
 
     def clear_data(self):
+        logger.info("Czyszczenie bazy...")
         self.cursor.execute("DELETE FROM events")
         self.cursor.execute("DELETE FROM city_forecasts")
         self.conn.commit()
@@ -130,10 +134,11 @@ class DataProcessor:
                 ))
                 saved += 1
             except Exception as e:
-                print(f"Blad przy evencie {event.get('id')}: {e}")
+                logger.error(f"Blad przy evencie {event.get('id')}: {e}")
                 continue
         
         self.conn.commit()
+        logger.info(f"Zapisano {saved} wydarzen dla miasta o id {city_id}.")
 
     def calculate_weather_score(self, category, weather_main, temp, wind_speed, humidity):
         weather_scores = {
@@ -194,7 +199,7 @@ class DataProcessor:
         for city in cities:
             city_id, name, lat, lon, radius = city
     
-            
+            logger.info(f"Pobieranie prognoz i wydarzen dla miasta: {name}...")
             forecast = self.weather_client.get_forecast(lat=float(lat), lon=float(lon))
             if forecast:
                 self.save_forecasts(city_id, forecast)
