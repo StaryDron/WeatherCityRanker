@@ -14,7 +14,9 @@ services:
       - eventweather_test_network
 
   backend_test:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: weatherapp_backend_test
     environment:
       APP_ENV: test
@@ -24,7 +26,7 @@ services:
       POSTGRES_HOST: db
       POSTGRES_PORT: 5432
     volumes:
-      - ./backend:/app
+      - .:/app
       - ./tests:/tests
     depends_on:
       - db

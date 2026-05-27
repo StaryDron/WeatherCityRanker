@@ -16,40 +16,44 @@ services:
       - eventweather_network
 
   ingestion:
-    build: ./ingestion
+    build:
+      context: .
+      dockerfile: ingestion/Dockerfile
     container_name: weatherapp_ingestion_dev
     env_file: .env
     environment:
       APP_ENV: dev
       INGESTION_INTERVAL_HOURS: 1
     volumes:
-      - ./ingestion:/app
+      - .:/app
     depends_on:
       - db
     networks:
       - eventweather_network
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
     container_name: weatherapp_backend_dev
     env_file: .env
     environment:
       APP_ENV: dev
     ports:
-      - "8000:8000"
+      - "8001:8000"
     volumes:
-      - ./backend:/app
+      - .:/app
     depends_on:
       - db
     networks:
       - eventweather_network
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
 
   frontend:
     image: nginx:alpine
     container_name: weatherapp_frontend_dev
     ports:
-      - "80:80"
+      - "8090:80"
     volumes:
       - ./frontend:/usr/share/nginx/html:ro
     networks:

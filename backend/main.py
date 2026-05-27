@@ -14,11 +14,7 @@ load_dotenv()
 app = FastAPI(title="EventWeather PL", version="1.0.0")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:8090",
-        "http://127.0.0.1:8090",
-    ],
-    allow_credentials=True,
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
