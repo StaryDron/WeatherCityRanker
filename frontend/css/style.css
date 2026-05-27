@@ -1,11 +1,3 @@
-/* ============================================================
-   EVENTWEATHER PL — JASNY STYL INSPIROWANY OPENWEATHER
-   Plik: frontend/css/style.css
-============================================================ */
-
-/* =========================
-   ZMIENNE KOLORÓW
-========================= */
 :root {
     --background: #ffffff;
     --background-secondary: #f4f8fb;
@@ -44,9 +36,6 @@
     --radius-lg: 24px;
 }
 
-/* =========================
-   GLOBALNE
-========================= */
 * {
     box-sizing: border-box;
 }
@@ -108,9 +97,6 @@ main {
     line-height: 1.72;
 }
 
-/* =========================
-   NAVBAR
-========================= */
 .custom-navbar {
     padding: 22px 0;
     background-color: transparent;
@@ -153,14 +139,20 @@ main {
 }
 
 .nav-link {
-    padding: 12px 4px !important;
+    padding: 12px 18px !important;
     color: #263b4c !important;
-    font-size: 0.97rem;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    border-radius: 12px;
 }
 
-.nav-link:hover,
+.nav-link:hover {
+    color: #ff6334 !important;
+    background-color: rgba(255, 99, 52, 0.08);
+}
+
 .nav-link:focus {
     color: var(--accent) !important;
 }
@@ -193,9 +185,6 @@ main {
     filter: none;
 }
 
-/* =========================
-   PRZYCISKI
-========================= */
 .btn-primary-custom {
     padding: 13px 27px;
     border: 1px solid var(--accent);
@@ -240,9 +229,6 @@ main {
     transform: translateY(-2px);
 }
 
-/* =========================
-   HERO — ZDJĘCIE NA CAŁY HEADER
-========================= */
 .hero-section {
     position: relative;
     display: flex;
@@ -255,8 +241,6 @@ main {
     background-position: center 82%;
     background-repeat: no-repeat;
 }
-/* Warstwa przyciemniająca całe zdjęcie,
-   żeby biały tekst był czytelny */
 .hero-section::before {
     content: "";
     position: absolute;
@@ -307,9 +291,6 @@ main {
     flex-wrap: wrap;
     gap: 15px;
 }
-/* =========================
-   STATYSTYKI
-========================= */
 .stats-section {
     position: relative;
     z-index: 3;
@@ -369,9 +350,6 @@ main {
     font-size: 0.86rem;
 }
 
-/* =========================
-   RANKING MIAST
-========================= */
 .ranking-card {
     position: relative;
     height: 100%;
@@ -453,9 +431,6 @@ main {
     background: linear-gradient(90deg, var(--accent), #ffb265);
 }
 
-/* =========================
-   KOLORY WYNIKU POGODY
-========================= */
 .score-high {
     color: var(--success);
 }
@@ -468,9 +443,6 @@ main {
     color: var(--danger);
 }
 
-/* =========================
-   MAPA
-========================= */
 .map-card {
     overflow: hidden;
     padding: 9px;
@@ -520,9 +492,6 @@ main {
     line-height: 1.7;
 }
 
-/* =========================
-   WYDARZENIA — NAGŁÓWEK
-========================= */
 .events-header {
     display: flex;
     justify-content: space-between;
@@ -547,9 +516,6 @@ main {
     color: var(--text-secondary);
 }
 
-/* =========================
-   FILTRY
-========================= */
 .filters-card {
     margin-bottom: 40px;
     padding: 25px;
@@ -612,7 +578,6 @@ main {
     box-shadow: 0 0 0 0.2rem rgba(255, 103, 47, 0.13);
 }
 
-/* Przycisk "Wyczyść filtry" ma być ciemny na jasnym tle */
 .filters-card .btn-outline-custom {
     border-color: var(--border-strong);
     background-color: #ffffff;
@@ -625,9 +590,6 @@ main {
     color: var(--accent);
 }
 
-/* =========================
-   KARTY WYDARZEŃ
-========================= */
 .event-card {
     display: flex;
     flex-direction: column;
@@ -753,9 +715,6 @@ main {
     color: #ffffff;
 }
 
-/* =========================
-   STANY ŁADOWANIA / BRAK DANYCH / BŁĄD
-========================= */
 .empty-state,
 .loading-message,
 .error-state {
@@ -774,9 +733,6 @@ main {
     color: var(--danger);
 }
 
-/* =========================
-   FOOTER
-========================= */
 .footer {
     padding: 42px 0;
     border-top: 1px solid var(--border);
@@ -816,9 +772,6 @@ main {
     font-weight: 600;
 }
 
-/* =========================
-   TABLETY I MNIEJSZE EKRANY
-========================= */
 @media (max-width: 1199px) {
     .stat-card {
         border-right: none;
@@ -896,9 +849,6 @@ main {
     }
 }
 
-/* =========================
-   TELEFONY
-========================= */
 @media (max-width: 576px) {
     .content-section {
         padding: 62px 0;

@@ -4,9 +4,6 @@ let map;
 let markers = [];
 let overviewLoaded = false;
 
-/* =========================
-   POMOCNICZE FUNKCJE
-========================= */
 
 function weatherIcon(main) {
     const icons = {
@@ -101,9 +98,6 @@ async function fetchJSON(url) {
     return response.json();
 }
 
-/* =========================
-   NAVBAR
-========================= */
 
 function initializeNavbar() {
     const navbar = document.getElementById("mainNavbar");
@@ -120,9 +114,6 @@ function initializeNavbar() {
     updateNavbar();
 }
 
-/* =========================
-   MAPA
-========================= */
 
 function initializeMap() {
     map = L.map("map").setView([52.0, 19.5], 6);
@@ -192,9 +183,6 @@ function updateMapMarkers(events) {
     }
 }
 
-/* =========================
-   MIASTA
-========================= */
 
 async function loadCities() {
     const select = document.getElementById("citySelect");
@@ -217,9 +205,6 @@ async function loadCities() {
     }
 }
 
-/* =========================
-   RANKING
-========================= */
 
 function medalForPosition(position) {
     if (position === 0) return "🥇";
@@ -292,9 +277,6 @@ async function loadRanking() {
     }
 }
 
-/* =========================
-   WYDARZENIA
-========================= */
 
 function createEventCard(event) {
     const ticketUrl = safeExternalUrl(event.url);
@@ -461,9 +443,6 @@ async function loadEvents() {
     }
 }
 
-/* =========================
-   FILTRY
-========================= */
 
 function initializeFilters() {
     document
@@ -489,9 +468,6 @@ function initializeFilters() {
         });
 }
 
-/* =========================
-   START APLIKACJI
-========================= */
 
 document.addEventListener("DOMContentLoaded", async () => {
     initializeNavbar();
