@@ -59,34 +59,84 @@ is_recurring, lat, lon)
 
 ## Struktura projektu
 
+Projekt został podzielony na niezależne moduły odpowiadające kolejnym warstwom systemu: pobieraniu danych, ich przetwarzaniu, przechowywaniu w bazie danych, udostępnianiu przez API oraz prezentacji w interfejsie użytkownika.
+
+```text
 WeatherCityRanker/
-├── backend/               # FastAPI REST API
-│   ├── Dockerfile
-│   ├── main.py
-│   └── requirements.txt
-├── ingestion/             # Pobieranie danych z API
-│   ├── Dockerfile
-│   ├── openweather_client.py
-│   ├── ticketmaster_client.py
-│   ├── scheduler.py
-│   └── logger.py
-├── processing/            # Przetwarzanie i zapis do bazy
-│   └── data_processor.py
-├── frontend/              # Interfejs użytkownika
-│   ├── index.html
-│   ├── css/styles.css
-│   └── js/app.js
+├── backend/
+│   ├── Dockerfile                  # obraz kontenera backendu
+│   ├── main.py                     # aplikacja REST API oparta na FastAPI
+│   └── requirements.txt            # zależności backendu
+│
 ├── db/
-│   └── init.sql           # Schemat bazy danych
-├── tests/
-│   ├── unit/              # Testy jednostkowe (pytest)
-│   └── performance/       # Testy wydajnościowe (locust)
+│   └── init.sql                    # inicjalizacja schematu bazy PostgreSQL
+│
 ├── docs/
-│   └── architecture/      # Diagramy C4 i UML (.mmd)
-├── docker-compose.yml          # Środowisko produkcyjne
-├── docker-compose.dev.yml      # Środowisko deweloperskie
-├── docker-compose.test.yml     # Środowisko testowe
-└── .env.example               # Szablon zmiennych środowiskowych
+│   └── architecture/
+│       ├── c4_container.mmd        # diagram kontenerów C4
+│       ├── c4_context.mmd          # diagram kontekstu C4
+│       ├── deployment.mmd          # diagram wdrożenia systemu
+│       └── uml_component.mmd       # diagram komponentów UML
+│
+├── frontend/
+│   ├── assets/
+│   │   └── hero-weather.jpg        # grafika nagłówka strony
+│   ├── css/
+│   │   └── style.css               # style interfejsu użytkownika
+│   ├── js/
+│   │   └── app.js                  # komunikacja z API i logika frontendu
+│   └── index.html                  # główna strona aplikacji
+│
+├── ingestion/
+│   ├── Dockerfile                  # obraz kontenera modułu pobierania danych
+│   ├── __init__.py
+│   ├── logger.py                   # konfiguracja logowania
+│   ├── openweather_client.py       # klient OpenWeatherMap API
+│   ├── requirements.txt            # zależności modułu ingestion
+│   ├── scheduler.py                # harmonogram automatycznego pobierania danych
+│   └── ticketmaster_client.py      # klient Ticketmaster Discovery API
+│
+├── processing/
+│   ├── __init__.py
+│   └── data_processor.py           # przetwarzanie, integracja danych
+│                                    # i obliczanie weather_score
+│
+├── tests/
+│   ├── performance/
+│   │   ├── locustfile.py                  # scenariusze testów wydajnościowych
+│   │   ├── results_10u_*.csv              # wyniki testów dla 10 użytkowników
+│   │   ├── results_50u_*.csv              # wyniki testów dla 50 użytkowników
+│   │   └── results_100u_*.csv             # wyniki testów dla 100 użytkowników
+│   ├── unit/
+│   │   ├── __init__.py
+│   │   ├── test_api_endpoints.py          # testy endpointów REST API
+│   │   ├── test_api_errors.py             # testy obsługi błędów API
+│   │   ├── test_haversine.py              # testy obliczania odległości
+│   │   └── test_weather_score.py          # testy wskaźnika pogodowego
+│   ├── __init__.py
+│   └── requirements.txt                   # zależności testowe
+│
+├── .env.example                    # przykładowa konfiguracja zmiennych środowiskowych
+├── .gitignore                      # pliki pomijane przez Git
+├── docker-compose.yml              # środowisko produkcyjne / demonstracyjne
+├── docker-compose.dev.yml          # środowisko developerskie
+├── docker-compose.test.yml         # środowisko testowe
+└── README.md                       # dokumentacja projektu
+```
+
+### Opis najważniejszych katalogów
+
+| Katalog | Rola w systemie |
+|---|---|
+| `backend/` | Warstwa API aplikacyjnego. Udostępnia dane zapisane w bazie w formacie JSON dla frontendu. |
+| `db/` | Definicja struktury relacyjnej bazy danych oraz jej inicjalizacja. |
+| `docs/architecture/` | Dokumentacja architektury systemu w notacjach C4 oraz UML. |
+| `frontend/` | Warstwa prezentacji danych: strona WWW, style, grafiki i logika JavaScript. |
+| `ingestion/` | Moduł odpowiedzialny za pobieranie danych z OpenWeatherMap API oraz Ticketmaster API. |
+| `processing/` | Moduł łączący dane o wydarzeniach i pogodzie oraz wyznaczający wynik `weather_score`. |
+| `tests/` | Testy jednostkowe oraz testy wydajnościowe systemu. |
+
+Podział projektu na osobne moduły odpowiada architekturze warstwowej. Dzięki temu każda część systemu realizuje jasno określoną odpowiedzialność, a poszczególne komponenty mogą być rozwijane i testowane niezależnie.
 
 ## Uruchomienie
 
