@@ -61,11 +61,13 @@ WeatherCityRanker/
 │   └── init.sql                    # inicjalizacja schematu bazy PostgreSQL
 │
 ├── docs/
-│   └── architecture/
-│       ├── c4_container.mmd        # diagram kontenerów C4
-│       ├── c4_context.mmd          # diagram kontekstu C4
-│       ├── deployment.mmd          # diagram wdrożenia systemu
-│       └── uml_component.mmd       # diagram komponentów UML
+│   ├── architecture/
+│   │   ├── container_diagram.png    # diagram kontenerów systemu
+│   │   ├── context_diagram.png      # diagram kontekstu systemu
+│   │   ├── deployment_diagram.png   # diagram wdrożenia systemu
+│   │   └── uml_component.png        # diagram komponentów UML
+│   ├── database-diagram.png         # diagram bazy danych
+│   └── dokumentacja.md              # dokumentacja projektu
 │
 ├── frontend/
 │   ├── assets/
@@ -110,7 +112,7 @@ WeatherCityRanker/
 ├── docker-compose.yml              # środowisko produkcyjne / demonstracyjne
 ├── docker-compose.dev.yml          # środowisko developerskie
 ├── docker-compose.test.yml         # środowisko testowe
-└── README.md                       # dokumentacja projektu
+└── README.md                      
 ```
 
 ### Opis najważniejszych katalogów
